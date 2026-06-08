@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSM Insights — Enterprise Intelligence Platform</title>
+  <meta name="description" content="A concept enterprise insights platform for RSM — realtime 3D data visualization across Audit, Tax, and Consulting. Built with Three.js, GSAP, and WebGL." />
+  <meta name="theme-color" content="#0a0e1a" />
+
+  <!-- Concept / non-affiliation note for crawlers -->
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Three.js as ES module via import map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- ░░ Preloader ░░ -->
+  <div id="loader" class="loader">
+    <div class="loader__inner">
+      <div class="loader__mark">RSM</div>
+      <div class="loader__bar"><span id="loaderFill"></span></div>
+      <div class="loader__meta">
+        <span id="loaderPct">0%</span>
+        <span>INITIALIZING INSIGHT ENGINE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ Fixed WebGL stage ░░ -->
+  <canvas id="stage"></canvas>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+
+  <!-- ░░ Floating Nav ░░ -->
+  <nav class="nav" id="nav">
+    <a class="nav__brand" href="#hero">
+      <span class="nav__logo">RSM</span>
+      <span class="nav__sub">INSIGHTS</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#audit" data-nav>Audit</a></li>
+      <li><a href="#tax" data-nav>Tax</a></li>
+      <li><a href="#consulting" data-nav>Consulting</a></li>
+      <li><a href="#platform" data-nav>Platform</a></li>
+    </ul>
+    <a href="#contact" class="nav__cta">
+      <span>Request Demo</span>
+    </a>
+  </nav>
+
+  <!-- ░░ HUD readouts (floating OS feel) ░░ -->
+  <div class="hud hud--tl">
+    <div class="hud__row"><span class="dot"></span> ENGINE / WEBGL · ONLINE</div>
+    <div class="hud__row" id="hudFps">FPS · —</div>
+  </div>
+  <div class="hud hud--bl" id="hudSection">
+    <div class="hud__label">SECTION</div>
+    <div class="hud__value" id="hudSectionName">HERO</div>
+  </div>
+  <div class="scroll-cue" id="scrollCue">
+    <span>SCROLL</span>
+    <span class="scroll-cue__line"></span>
+  </div>
+
+  <!-- ░░ Scroll content ░░ -->
+  <main class="content" id="content">
+
+    <!-- HERO -->
+    <section class="section section--hero" id="hero" data-section="HERO">
+      <div class="hero">
+        <div class="hero__eyebrow reveal"><span>CONCEPT · ENTERPRISE INSIGHTS PLATFORM</span></div>
+        <h1 class="hero__title">
+          <span class="line"><span class="word">Intelligence,</span></span>
+          <span class="line"><span class="word">rendered in</span></span>
+          <span class="line"><span class="word grad">realtime.</span></span>
+        </h1>
+        <p class="hero__lede reveal">
+          A futuristic operating system for enterprise decision-making —
+          where <em>Audit</em>, <em>Tax</em>, and <em>Consulting</em> data become
+          living, navigable 3D worlds.
+        </p>
+        <div class="hero__meta reveal">
+          <div class="meta-chip"><b>Three.js</b> · WebGL</div>
+          <div class="meta-chip"><b>GSAP</b> · ScrollTrigger</div>
+          <div class="meta-chip"><b>Lenis</b> · Smooth Scroll</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="section section--center" id="manifesto" data-section="VISION">
+      <div class="manifesto glass">
+        <span class="kicker reveal">THE MIDDLE MARKET, IN MOTION</span>
+        <h2 class="manifesto__head split">
+          We turn raw financial complexity into clarity you can <span class="grad">see</span>.
+        </h2>
+        <p class="reveal">
+          Three core practices. One unified intelligence layer. Every figure,
+          filing, and forecast becomes a structure you can fly through — so the
+          insight arrives before the spreadsheet does.
+        </p>
+      </div>
+    </section>
+
+    <!-- AUDIT -->
+    <section class="section section--service" id="audit" data-section="AUDIT" data-scene="audit" data-accent="#36e0c8">
+      <div class="service">
+        <div class="service__index">01</div>
+        <div class="service__body glass">
+          <span class="kicker reveal">PRACTICE 01</span>
+          <h2 class="service__title split">Audit &amp; Assurance</h2>
+          <p class="service__lede reveal">
+            A live verification mesh. Every transaction is a node; every control,
+            an edge. Anomalies pulse the instant they surface — assurance you can
+            literally watch hold the line.
+          </p>
+          <ul class="feature-list">
+            <li class="reveal"><span class="fl__n">→</span> Continuous, full-population testing</li>
+            <li class="reveal"><span class="fl__n">→</span> Risk-weighted anomaly detection</li>
+            <li class="reveal"><span class="fl__n">→</span> Real-time control attestation</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat reveal"><span class="stat__num" data-count="100">0</span><span class="stat__unit">%</span><span class="stat__lbl">Population tested</span></div>
+            <div class="stat reveal"><span class="stat__num" data-count="2.4">0</span><span class="stat__unit">M</span><span class="stat__lbl">Records / scan</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAX -->
+    <section class="section section--service" id="tax" data-section="TAX" data-scene="tax" data-accent="#7c5cff">
+      <div class="service service--right">
+        <div class="service__index">02</div>
+        <div class="service__body glass">
+          <span class="kicker reveal">PRACTICE 02</span>
+          <h2 class="service__title split">Tax &amp; Strategy</h2>
+          <p class="service__lede reveal">
+            Liability as a landscape. Scenario waves ripple across jurisdictions
+            in realtime, so the optimal structure isn't modeled in a deck — it's
+            navigated in three dimensions.
+          </p>
+          <ul class="feature-list">
+            <li class="reveal"><span class="fl__n">→</span> Multi-jurisdiction scenario modeling</li>
+            <li class="reveal"><span class="fl__n">→</span> Predictive provisioning &amp; forecasting</li>
+            <li class="reveal"><span class="fl__n">→</span> Credits &amp; incentives surfacing</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat reveal"><span class="stat__num" data-count="48">0</span><span class="stat__unit">+</span><span class="stat__lbl">Jurisdictions</span></div>
+            <div class="stat reveal"><span class="stat__num" data-count="18">0</span><span class="stat__unit">%</span><span class="stat__lbl">Avg. liability modeled down</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSULTING -->
+    <section class="section section--service" id="consulting" data-section="CONSULTING" data-scene="consulting" data-accent="#ff8a3d">
+      <div class="service">
+        <div class="service__index">03</div>
+        <div class="service__body glass">
+          <span class="kicker reveal">PRACTICE 03</span>
+          <h2 class="service__title split">Consulting &amp; Transformation</h2>
+          <p class="service__lede reveal">
+            The organization as a digital twin. Operations, capital, and talent
+            orbit a single core — pull one lever and watch the whole enterprise
+            respond before you commit a dollar.
+          </p>
+          <ul class="feature-list">
+            <li class="reveal"><span class="fl__n">→</span> Operating-model digital twin</li>
+            <li class="reveal"><span class="fl__n">→</span> Scenario stress-testing &amp; what-if</li>
+            <li class="reveal"><span class="fl__n">→</span> Technology &amp; ERP transformation</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat reveal"><span class="stat__num" data-count="3.2">0</span><span class="stat__unit">x</span><span class="stat__lbl">Faster decision cycles</span></div>
+            <div class="stat reveal"><span class="stat__num" data-count="360">0</span><span class="stat__unit">°</span><span class="stat__lbl">Enterprise view</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLATFORM / FLOATING GRID -->
+    <section class="section section--center" id="platform" data-section="PLATFORM" data-scene="grid">
+      <div class="platform">
+        <span class="kicker reveal">ONE PLATFORM</span>
+        <h2 class="platform__head split">A single operating system for the firm.</h2>
+        <div class="grid-cards">
+          <article class="card glass reveal">
+            <div class="card__icon">◇</div>
+            <h3>Unified Data Fabric</h3>
+            <p>Audit, Tax, and Consulting streams converge into one queryable, live-rendered layer.</p>
+          </article>
+          <article class="card glass reveal">
+            <div class="card__icon">◈</div>
+            <h3>Cinematic Reporting</h3>
+            <p>Board-ready stories that move — scroll-driven narratives instead of static slides.</p>
+          </article>
+          <article class="card glass reveal">
+            <div class="card__icon">◉</div>
+            <h3>Realtime Collaboration</h3>
+            <p>Advisors and clients explore the same 3D model from anywhere, in sync.</p>
+          </article>
+          <article class="card glass reveal">
+            <div class="card__icon">⬡</div>
+            <h3>Secure by Design</h3>
+            <p>Enterprise-grade governance and audit trails built into every interaction.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / CTA -->
+    <section class="section section--center" id="contact" data-section="CONTACT">
+      <div class="cta">
+        <h2 class="cta__head split">See your enterprise<br/>like never before.</h2>
+        <p class="reveal">A concept demonstration of what next-generation advisory could feel like.</p>
+        <a class="cta__btn reveal" href="https://github.com/nightschuy" target="_blank" rel="noopener">
+          <span>Request a Demo</span>
+          <span class="cta__arrow">↗</span>
+        </a>
+        <footer class="footer reveal">
+          <p class="footer__disclaimer">
+            <strong>Concept project — not affiliated with or endorsed by RSM US LLP or RSM International.</strong>
+            Created as a front-end engineering &amp; motion-design demonstration. All trademarks belong to their respective owners.
+          </p>
+          <div class="footer__row">
+            <span>© <span id="year"></span> Concept by nightschuy</span>
+            <span>Three.js · GSAP · Lenis · WebGL</span>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- GSAP + ScrollTrigger + Lenis (UMD) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <!-- App -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
