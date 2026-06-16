@@ -299,20 +299,31 @@ const StageFX = (() => {
    2. TEXT SPLITTING (lightweight)
    ============================================================ */
 function splitWords(el) {
-  const text = el.textContent;
-  el.setAttribute('aria-label', text);
-  el.innerHTML = '';
+  // Walk the original child nodes so structural tags (e.g. <br>) are preserved
+  // and adjacent words aren't merged when separated only by markup.
+  const nodes = Array.from(el.childNodes);
+  const label = nodes.map(n => (n.nodeType === Node.ELEMENT_NODE && n.tagName === 'BR') ? ' ' : n.textContent).join('');
+  el.setAttribute('aria-label', label.replace(/\s+/g, ' ').trim());
   const frag = document.createDocumentFragment();
-  text.split(/(\s+)/).forEach(tok => {
-    if (tok.trim() === '') { frag.appendChild(document.createTextNode(tok)); return; }
-    const wrap = document.createElement('span');
-    wrap.style.display = 'inline-block'; wrap.style.overflow = 'hidden';
-    wrap.style.verticalAlign = 'top';
-    const inner = document.createElement('span');
-    inner.className = 'word'; inner.textContent = tok;
-    inner.setAttribute('aria-hidden', 'true');
-    wrap.appendChild(inner); frag.appendChild(wrap);
+  nodes.forEach(node => {
+    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+      frag.appendChild(document.createElement('br'));
+      return;
+    }
+    const text = node.textContent;
+    text.split(/(\s+)/).forEach(tok => {
+      if (tok === '') return;
+      if (tok.trim() === '') { frag.appendChild(document.createTextNode(tok)); return; }
+      const wrap = document.createElement('span');
+      wrap.style.display = 'inline-block'; wrap.style.overflow = 'hidden';
+      wrap.style.verticalAlign = 'top';
+      const inner = document.createElement('span');
+      inner.className = 'word'; inner.textContent = tok;
+      inner.setAttribute('aria-hidden', 'true');
+      wrap.appendChild(inner); frag.appendChild(wrap);
+    });
   });
+  el.innerHTML = '';
   el.appendChild(frag);
   return el.querySelectorAll('.word');
 }
